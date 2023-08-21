@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const postSchema = new mongoose.Schema(
     {
         title: { type: "string", required: true },
+        avatar: { type: "string", required: true },
         description: { type: "string", required: true },
         content: { type: "string", required: true },
     },
