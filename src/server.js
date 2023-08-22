@@ -2,17 +2,18 @@ import express from "express";
 import mongoose from "mongoose";
 import connectDb from "~/configs/mongodb";
 import router from "./router";
-import cors from 'cors'
+import cors from "cors";
+import checkPermission from "./middleware/checkAuthenticated";
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const PORT = process.env.PORT || 8000;
 
 router(app);
-app.use("/", (req, res) => {
+app.use("/", checkPermission, (req, res) => {
     res.send("Hello word");
 });
 connectDb();
