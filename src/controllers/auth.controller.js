@@ -72,6 +72,14 @@ class AuthController {
             res.status(500).json({ error: true, message: error.message });
         }
     }
+
+    getUserLogin(req, res, next) {
+        try {
+            return res.status(200).json({ info: req.user, message: "Authenticate successfully" });
+        } catch (error) {
+            res.status(500).json({ error: true, message: error.message });
+        }
+    }
 }
 
 export default new AuthController();

@@ -2,10 +2,10 @@ const Joi = require("joi");
 
 export const create = (req, res, next) => {
     const schema = Joi.object({
-        title: Joi.string().min(6).required(),
-        avatar: Joi.string().required(),
-        description: Joi.string().min(10).required(),
+        userId: Joi.string().required(),
+        postId: Joi.string().required(),
         content: Joi.string().required(),
+        parentId: Joi.string().allow(null),
     });
 
     const result = schema.validate(req.body);
@@ -24,11 +24,10 @@ export const create = (req, res, next) => {
 };
 export const update = (req, res, next) => {
     const schema = Joi.object({
-        title: Joi.string().min(10).required(),
-        avatar: Joi.string().required(),
-        description: Joi.string().required(),
+        userId: Joi.string().required(),
+        postId: Joi.string().required(),
         content: Joi.string().required(),
-        commentCounts: Joi.number(),
+        parentId: Joi.string().allow(null),
     });
 
     const result = schema.validate(req.body);
