@@ -5,7 +5,7 @@ export const create = (req, res, next) => {
         userId: Joi.string().required(),
         postId: Joi.string().required(),
         content: Joi.string().required(),
-        parentId: Joi.string(),
+        parentId: Joi.string().allow(null),
     });
 
     const result = schema.validate(req.body);
@@ -27,7 +27,7 @@ export const update = (req, res, next) => {
         userId: Joi.string().required(),
         postId: Joi.string().required(),
         content: Joi.string().required(),
-        parentId: Joi.string(),
+        parentId: Joi.string().allow(null),
     });
 
     const result = schema.validate(req.body);

@@ -28,6 +28,7 @@ export const update = (req, res, next) => {
         avatar: Joi.string().required(),
         description: Joi.string().required(),
         content: Joi.string().required(),
+        commentCounts: Joi.number(),
     });
 
     const result = schema.validate(req.body);

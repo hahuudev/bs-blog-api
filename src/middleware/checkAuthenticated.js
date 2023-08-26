@@ -5,19 +5,19 @@ import "dotenv/config";
 const checkAuthenticated = (req, res, next) => {
     try {
         if (!req.headers.authorization) {
-            return res.status(400).json({ message: "Unauthorized" });
+            return res.status(400).json({ message: "Unauthenticated - Bạn chưa đăng nhập" });
         }
 
         const token = req.headers.authorization.split(" ")[1];
 
         jwt.verify(token, process.env.PRIVATE_KEY, async (error, payload) => {
             if (error) {
-                res.status(401).json({ message: error.message });
+                return res.status(401).json({ message: error.message });
             }
 
-            const userDb = await UserModel.findOne({ email: payload.email });
+            const userDb = await UserModel.findOne({ email: payload.email }).select(["-password"]);
             if (!userDb) {
-                return res.status(400).json({ message: "Unauthorized" });
+                return res.status(400).json({ message: "Unauthorized - Bạn không có quyền" });
             }
 
             req.user = userDb;

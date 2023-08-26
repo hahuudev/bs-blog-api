@@ -1,7 +1,7 @@
 import UserModel from "~/models/user.model";
 
 export const getAll = (queryParams) => {
-    const { page = 1, limit = 10, sort = "createdAt", order = 1, ...query } = queryParams;
+    const { page = 1, limit = 10, sort = "createdAt", fieldSearch, search, order = 1, ...query } = queryParams;
     const skip = (page - 1) * limit;
     const sortOptions = {
         [sort]: order === 1 ? 1 : -1,

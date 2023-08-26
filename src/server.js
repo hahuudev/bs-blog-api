@@ -6,16 +6,22 @@ import cors from "cors";
 import checkPermission from "./middleware/checkAuthenticated";
 
 const app = express();
+app.use(
+    cors({
+        origin: ["http://localhost:3000"],
+        credentials: true
+    })
+);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 const PORT = process.env.PORT || 8000;
 
 router(app);
-app.use("/", checkPermission, (req, res) => {
-    res.send("Hello word");
-});
+// app.use("/", checkPermission, (req, res) => {
+//     res.send("Hello word");
+// });
 connectDb();
 mongoose.connection.once("open", () => {
     console.log("Connect DB successfully");

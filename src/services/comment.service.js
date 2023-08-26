@@ -1,13 +1,18 @@
 import CommentModel from "~/models/comment.model";
+import UserModel from "~/models/user.model";
 
 export const getAll = (queryParams) => {
-    const { page = 1, limit = 10, sort = "createdAt", order = 1, ...query } = queryParams;
+    const { page = 1, limit = 10, sort = "createdAt", fieldSearch, search, order = 1, ...query } = queryParams;
     const skip = (page - 1) * limit;
     const sortOptions = {
         [sort]: order === 1 ? 1 : -1,
     };
 
-    return CommentModel.find(query).skip(skip).limit(limit).sort(sortOptions);
+    return CommentModel.find(query)
+        .populate({ path: "userId", model: UserModel, select: ["avatar", "fullname"] })
+        .skip(skip)
+        .limit(limit)
+        .sort(sortOptions);
 };
 
 export const countDocuments = () => {
