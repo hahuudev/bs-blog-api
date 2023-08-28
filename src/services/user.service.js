@@ -1,4 +1,4 @@
-import PostModel from "~/models/post.model";
+import UserModel from "~/models/user.model";
 
 export const getAll = (queryParams) => {
     const { page = 1, limit = 10, sort = "createdAt", fieldSearch, search, order = 1, ...query } = queryParams;
@@ -7,23 +7,23 @@ export const getAll = (queryParams) => {
         [sort]: order === 1 ? 1 : -1,
     };
 
-    return PostModel.find(query).skip(skip).limit(limit).sort(sortOptions);
+    return UserModel.find(query).select(["-password"]).skip(skip).limit(limit).sort(sortOptions);
 };
 
 export const countDocuments = () => {
-    return PostModel.countDocuments();
+    return UserModel.countDocuments();
 };
 
 export const getById = (id) => {
-    return PostModel.findById(id);
+    return UserModel.findById(id);
 };
 export const create = (data) => {
-    const post = new PostModel(data);
+    const post = new UserModel(data);
     return post.save();
 };
 export const update = (id, data) => {
-    return PostModel.findByIdAndUpdate(id, data, { new: true });
+    return UserModel.findByIdAndUpdate(id, data, { new: true });
 };
 export const remove = (id) => {
-    return PostModel.findByIdAndDelete(id);
+    return UserModel.findByIdAndDelete(id);
 };

@@ -1,17 +1,17 @@
-import * as PostService from "~/services/post.service";
+import * as CommentService from '~/services/comment.service'
 
 class PostController {
     async index(req, res, next) {
         try {
             const limit = req.query.limit || 10;
-            const [posts, totalPost] = await Promise.all([PostService.getAll(req.query), PostService.countDocuments()]);
+            const [comments, totalComment] = await Promise.all([CommentService.getAll(req.query), CommentService.countDocuments()]);
             return res.status(200).json({
-                message: "Get all posts successfully",
-                length: posts.length || 0,
-                data: posts,
+                message: "Get all comments successfully",
+                length: comments.length || 0,
+                data: comments,
                 currentPage: req.query.page || 1,
-                totalPage: Math.ceil(totalPost / limit),
-                total: totalPost,
+                totalPage: Math.ceil(totalComment / limit),
+                total: totalComment,
             });
         } catch (error) {
             res.status(500).json({ error: true, message: error.message });
@@ -20,11 +20,11 @@ class PostController {
 
     async getById(req, res, next) {
         try {
-            const post = await PostService.getById(req.params.id);
+            const comment = await CommentService.getById(req.params.id);
 
             return res.status(200).json({
-                message: "Get all posts successfully",
-                data: post,
+                message: "Get all comments successfully",
+                data: comment,
             });
         } catch (error) {
             res.status(500).json({ error: true, message: error.message });
@@ -33,11 +33,11 @@ class PostController {
 
     async create(req, res, next) {
         try {
-            const post = await PostService.create(req.body);
+            const comment = await CommentService.create(req.body);
 
             return res.status(200).json({
-                message: "Create post successfully",
-                data: post,
+                message: "Create comment successfully",
+                data: comment,
             });
         } catch (error) {
             res.status(500).json({ error: true, message: error.message });
@@ -46,11 +46,11 @@ class PostController {
 
     async update(req, res, next) {
         try {
-            const posts = await PostService.update(req.params.id, req.body);
+            const comment = await CommentService.update(req.params.id, req.body);
 
             return res.status(200).json({
-                message: "Update post successfully",
-                data: posts,
+                message: "Update comment successfully",
+                data: comment,
             });
         } catch (error) {
             res.status(500).json({ error: true, message: error.message });
@@ -58,11 +58,11 @@ class PostController {
     }
     async remove(req, res, next) {
         try {
-            const posts = await PostService.remove(req.params.id);
+            const comment = await CommentService.remove(req.params.id);
 
             return res.status(200).json({
-                message: "Remove post successfully",
-                data: posts,
+                message: "Remove comment successfully",
+                data: comment,
             });
         } catch (error) {
             res.status(500).json({ error: true, message: error.message });
