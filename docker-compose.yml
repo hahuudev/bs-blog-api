@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    mysql:
+        image: mysql
+        container_name: db-mysql-bs-blog
+        environment:
+            MYSQL_ROOT_PASSWORD: hahuudev
+            MYSQL_DATABASE: bs-blog
+
+        ports:
+            - "3307:3306"
+       
